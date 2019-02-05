@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block userName %}
+    <div class="user-control user-name">
+        {#{{ user.name }} {{ user.surname }}#}
+    </div>
+{% endblock %}
+
+{% block body %}
+    <main>
+        <h3 class="your-accounts">Twoje rachunki</h3>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-6 p-0">
+                    <div class="user-account" id="account-nr1">
+                        <div class="user-account-type">Konto standard</div>
+                        <div class="user-account-number">77 1140 2004 0000 3302 7573 2873</div>
+                        <div class="user-account-balance">792,02 PLN</div>
+                        <div class="user-account-available-funds">645,33 PLN</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 p-0">
+                    <div class="user-account" id="account-nr2">
+                        <div class="user-account-type">Konto standard</div>
+                        <div class="user-account-number">77 1140 2004 0000 3302 7573 2873</div>
+                        <div class="user-account-balance">4 5000,00 PLN</div>
+                        <div class="user-account-available-funds">4 500,00 PLN</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
