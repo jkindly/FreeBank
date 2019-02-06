@@ -28,11 +28,4 @@ class BankAccountController extends AbstractController
             'account' => $account
         ]);
     }
-
-    /**
-     * @Route("/create-bank-account", name="create_bank_account")
-     */
-    public function createBankAccount() {
-
-    }
 }

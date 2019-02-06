@@ -8,28 +8,32 @@
 
 {% block body %}
     <main>
-        <h3 class="your-accounts">Twoje rachunki</h3>
-        <div class="container">
-            <div class="row">
-                <div class="col-12 col-md-6 p-0">
-                    <div class="user-account" id="account-nr1">
-                        <div class="user-account-type">Konto standard</div>
-                        <div class="user-account-number">77 1140 2004 0000 3302 7573 2873</div>
-                        <div class="user-account-balance">792,02 PLN</div>
-                        <div class="user-account-available-funds">645,33 PLN</div>
+        {% if account.bankAccounts|length == 0 %}
+            <h3 class="your-accounts">Nie posiadasz jeszcze żadnego otwartego rachunku</h3>
+        {% else %}
+            <h3 class="your-accounts">Twoje rachunki</h3>
+            <div class="container">
+                {% for bankAccount in account.bankAccounts %}
+                    <div class="row">
+                        <div class="col-12 col-md-6 p-0">
+                            <div class="user-account" id="account-nr{{ loop.index }}">
+                                <div class="user-account-type">
+                                    Konto {{ bankAccount.accountType }}
+                                </div>
+                                <div class="user-account-number">
+                                    {{ bankAccount.accountNumber }}
+                                </div>
+                                <div class="user-account-balance">
+                                    {{ bankAccount.balance }} PLN
+                                </div>
+                                <div class="user-account-available-funds">
+                                    {{ bankAccount.availableFunds }} PLN
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                {% endfor %}
             </div>
-            <div class="row">
-                <div class="col-md-6 p-0">
-                    <div class="user-account" id="account-nr2">
-                        <div class="user-account-type">Konto standard</div>
-                        <div class="user-account-number">77 1140 2004 0000 3302 7573 2873</div>
-                        <div class="user-account-balance">4 5000,00 PLN</div>
-                        <div class="user-account-available-funds">4 500,00 PLN</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {% endif %}
     </main>
 {% endblock %}

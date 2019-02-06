@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
@@ -37,6 +39,16 @@ class User
      * @ORM\Column(type="string", length=255)
      */
     private $password;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\BankAccount", mappedBy="user")
+     */
+    private $bankAccounts;
+
+    public function __construct()
+    {
+        $this->bankAccounts = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -87,6 +99,37 @@ class User
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BankAccount[]
+     */
+    public function getBankAccounts(): Collection
+    {
+        return $this->bankAccounts;
+    }
+
+    public function addBankAccount(BankAccount $bankAccount): self
+    {
+        if (!$this->bankAccounts->contains($bankAccount)) {
+            $this->bankAccounts[] = $bankAccount;
+            $bankAccount->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBankAccount(BankAccount $bankAccount): self
+    {
+        if ($this->bankAccounts->contains($bankAccount)) {
+            $this->bankAccounts->removeElement($bankAccount);
+            // set the owning side to null (unless already changed)
+            if ($bankAccount->getUser() === $this) {
+                $bankAccount->setUser(null);
+            }
+        }
 
         return $this;
     }

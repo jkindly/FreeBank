@@ -24,7 +24,7 @@ class BankAccount
     private $accountType;
 
     /**
-     * @ORM\Column(type="string", length=26, unique=true)
+     * @ORM\Column(type="string", length=32, unique=true)
      */
     private $accountNumber;
 
@@ -37,6 +37,12 @@ class BankAccount
      * @ORM\Column(type="decimal", precision=9, scale=2)
      */
     private $availableFunds;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="bankAccounts")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
 
     public function getId(): ?int
     {
@@ -87,6 +93,18 @@ class BankAccount
     public function setAvailableFunds($availableFunds): self
     {
         $this->availableFunds = $availableFunds;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
